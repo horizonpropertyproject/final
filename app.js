@@ -2,7 +2,7 @@ var express=require('express');
 var app=express();
 var fs=require('fs');
 
-//var snippets=require('httpsnippets');
+var snippets=require('httpsnippet');
 
 //Email
 
