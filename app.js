@@ -19,11 +19,11 @@ app.get('/',routes.home);
 
 
 
-var port = Number(process.env.PORT || 8080);
-app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+//var port = Number(process.env.PORT || 8080);
+//app.use(bodyParser.json()); // to support JSON-encoded bodies
+//app.use(bodyParser.urlencoded({
+//  extended: true
+//}));
 
 
 app.post('/home', function(req, res)
