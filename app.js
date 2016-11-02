@@ -1,56 +1,39 @@
 var express=require('express');
 var app=express();
-var fs=require('fs');
-//Email
 var http=require('http');
-http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
-  resp.on('data', function(ip) {
-	  var ip_adr=ip;
-    console.log("My public IP address is: " + ip_adr);
-fs.appendFile('ip.txt',ip_adr,'utf8',function (err) {
-
-});
-//fs.writeFile('ip.txt' +ip_adr+ function (err) {
-  
-//});
-  });
-  
-
-	
-});
-
-
+var fs=require('fs');
 var nodemailer = require("nodemailer");
 var bodyParser = require('body-parser')
+var path=require('path');
 
 //Path
-
-var path=require('path');
 app.use(express.static(path.join(__dirname,'public')));
 
-
 //Router
-
 var router=require('router');
 app.set('view engine','ejs');
 var routes=require('./routes');
-//Home
 
+//Home
 app.get('/',routes.home);
 
 
 
-
-var port = Number(process.env.PORT || 3000);
+var port = Number(process.env.PORT || 8080);
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
 
-// client ip save in text file
+app.post('/home', function(req, res)
+{
+	fs.appendFile('ip.txt',req.body.pagesdiv ,'utf8',function (err) {
+		
+});
 
-	// fs.appendFile('ip.txt' +JSON.stringify(req.body.myLink)+ function (err) {});
+ 
+});
 
 
 
@@ -328,7 +311,4 @@ res.send("Thank You " +req.body.name+ "!!!");
 });
 
 
-
-app.listen(3000,function(){
-console.log('Server running at 192.168.0.11:3000');	
-});
+app.listen(80);
