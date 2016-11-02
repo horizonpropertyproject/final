@@ -1,18 +1,14 @@
 var express=require('express');
 var app=express();
 var fs=require('fs');
-
-var snippets=require('httpsnippet');
-
 //Email
-
 var http=require('http');
 http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
   resp.on('data', function(ip) {
 	  var ip_adr=ip;
     console.log("My public IP address is: " + ip_adr);
 fs.appendFile('ip.txt',ip_adr,'utf8',function (err) {
-		
+
 });
 //fs.writeFile('ip.txt' +ip_adr+ function (err) {
   
