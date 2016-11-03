@@ -51,7 +51,7 @@ if(req.body.name == "" ||req.body.email == "" || req.body.mobile == "" || req.bo
   return false;
 }
 // Sending Email Without SMTP
-nodemailer.mail({
+/*nodemailer.mail({
     from: req.body.email, // sender address
     to:"prerana.nerkar1@gmail.com", // list of receivers
     subject: "Enquiry for the price of sheth zuri platinum-belt : Actual Sample Flat", // Subject line
@@ -60,8 +60,37 @@ nodemailer.mail({
 res.send("Thank You " +req.body.name+ "!!! Our Executive will contact you within 24hrs");
 
 
+*/
+
+  // Sending Emails with SMTP, Configuring SMTP settings
  
+  var smtpTransport = nodemailer.createTransport("SMTP",{
+             host: "smtp.live.com", // hostname
+    secureConnection: true, // use SSL
+    port: 587, // port for secure SMTP
+            auth: {
+                 user: "horizonpropertyproject@hotmail.com",
+                 pass: "horizon1234"
+            }
+        });
+        var mailOptions = {
+            from:req.body.email, // sender address
+            to:"horizonpropertyproject@hotmail.com", // list of receivers
+    subject: "Enquiry for the price of sheth zuri platinum-belt : Actual Sample Flat", // Subject line
+            //text: "Hello world ✔", // plaintext body
+    html: "<b>Client Name:  "+req.body.name+" </b><br><b>Email Id:  "+req.body.email+"</b><br><b>Country:  "+req.body.Country+"</b><br><b>Mobile No.:  "+req.body.mobile+"</b><br><b>Require Room Type:  "+req.body.type+"</b><br><b>Visit Date  "+req.body.pickupdate1+"</b><br><b>visit Time:  "+req.body.pickuptime1+" "+req.body.am+"</b></br>" // html body
+        }
+        smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+             res.send("Email could not sent due to error: "+error);
+        }else{
+res.send("Thank You " +req.body.name+ "!!! Our Executive will contact you within 24hrs");
+        } 
+    });
 });
+
+
+
 
 
 
